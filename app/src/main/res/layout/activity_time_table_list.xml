@@ -60,7 +60,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/createevent"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
@@ -68,6 +68,7 @@
             android:layout_marginBottom="5dp"
             android:backgroundTint="@color/Blue"
             android:fontFamily="@font/aclonica"
+            android:onClick="CreateNewEvent"
             android:text="CREATE EVENT"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

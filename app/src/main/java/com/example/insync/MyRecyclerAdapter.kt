@@ -20,22 +20,44 @@ class MyRecyclerAdapter(
     var images = img
     var context = ct
 
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private lateinit var mListener: onItemClickListener
+
+    interface onItemClickListener {
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener: onItemClickListener) {
+
+        mListener = listener
+
+    }
+
+    class MyViewHolder(itemView: View, listener: onItemClickListener) :
+        RecyclerView.ViewHolder(itemView) {
         var myText1: TextView = itemView.findViewById(R.id.subject_name)
         var myText2: TextView = itemView.findViewById(R.id.lecture_timings)
         var lectureImage: ImageView = itemView.findViewById(R.id.subject_image)
+
+
+        init {
+            itemView.setOnClickListener {
+                listener.onItemClick(adapterPosition)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(context)
         val view: View = inflater.inflate(R.layout.my_row, parent, false)
-        return MyViewHolder(view)
+        return MyViewHolder(view, mListener)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.myText1.setText(data1[position])
         holder.myText2.setText(data2[position])
         holder.lectureImage.setImageResource(images[position])
+
+
     }
 
     override fun getItemCount(): Int {

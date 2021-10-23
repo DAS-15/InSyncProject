@@ -5,7 +5,7 @@
         <item
             android:id="@+id/calender"
             android:icon="@drawable/calendericon"
-            android:title="Calender" />
+            android:title="Schedule" />
 
         <item
             android:id="@+id/account"
