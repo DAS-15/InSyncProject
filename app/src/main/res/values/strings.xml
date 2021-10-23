@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">InSync</string>
+    <string name="navigation_drawar_open">Open Navigation Drawar</string>
+    <string name="navigation_drawar_close">Close Navigation Drawar</string>
+
+    <string-array name="subject_name">
+        <item>Fundamentals of Data Structures</item>
+        <item>Object Oriented Programming</item>
+        <item>Discrete Mathematics</item>
+        <item>Computer Architecture and Organization</item>
+        <item>Analog and Digital Electronics</item>
+    </string-array>
+
+    <string-array name="lecture_timing">
+        <item>09:00 to 10:00</item>
+        <item>10:15 to 11:15</item>
+        <item>11:30 to 12:30</item>
+        <item>13:15 to 14:15</item>
+        <item>14:30 to 15:30</item>
+    </string-array>
+
+</resources>
