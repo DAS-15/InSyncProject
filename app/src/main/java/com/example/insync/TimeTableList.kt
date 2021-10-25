@@ -15,9 +15,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
+import android.view.MenuItem
+import androidx.core.view.GravityCompat
 
 
-class TimeTableList : AppCompatActivity() {
+class TimeTableList : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var recyclerView: RecyclerView
 
@@ -46,19 +49,7 @@ class TimeTableList : AppCompatActivity() {
         navigationView = findViewById(R.id.nav_view)
         toolbar = findViewById(R.id.topAppBar)
 
-
-        setSupportActionBar(toolbar)
-
-        val toogle: ActionBarDrawerToggle = ActionBarDrawerToggle(
-            this,
-            drawerLayout,
-            toolbar,
-            R.string.navigation_drawar_open,
-            R.string.navigation_drawar_close
-        )
-        drawerLayout.addDrawerListener(toogle)
-        toogle.syncState()
-
+        // Recycler View Setup
         recyclerView = findViewById(R.id.recyclerView)
 
         s1 = resources.getStringArray(R.array.subject_name)
@@ -82,5 +73,18 @@ class TimeTableList : AppCompatActivity() {
     fun CreateNewEvent(view: android.view.View) {
         val intent = Intent(applicationContext, AddEventActivity::class.java)
         startActivity(intent)
+    }
+
+    fun openNav(view: android.view.View) {
+        drawerLayout.openDrawer(navigationView)
+    }
+
+    // Nav drawar onclick listener
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        Toast.makeText(this, item.itemId.toString(), Toast.LENGTH_SHORT).show()
+        Log.i("itemid", item.itemId.toString())
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

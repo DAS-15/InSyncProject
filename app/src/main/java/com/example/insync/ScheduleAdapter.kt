@@ -8,18 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class MyRecyclerAdapter(
+class ScheduleAdapter(
     ct: Context,
-    s1: Array<String>,
-    s2: Array<String>,
-    img: Array<Int>
-) : RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder>() {
+    days: Array<String>
+) : RecyclerView.Adapter<ScheduleAdapter.MyViewHolder>() {
 
-    var data1 = s1
-    var data2 = s2
-    var images = img
-    var context = ct
-
+    val c = ct
+    val dayarr = days
     private lateinit var mListener: onItemClickListener
 
     interface onItemClickListener {
@@ -27,17 +22,12 @@ class MyRecyclerAdapter(
     }
 
     fun setOnItemClickListener(listener: onItemClickListener) {
-
         mListener = listener
-
     }
 
-    class MyViewHolder(itemView: View, listener: onItemClickListener) :
+    class MyViewHolder(itemView: View, listener: ScheduleAdapter.onItemClickListener) :
         RecyclerView.ViewHolder(itemView) {
-        var myText1: TextView = itemView.findViewById(R.id.subject_name)
-        var myText2: TextView = itemView.findViewById(R.id.lecture_timings)
-        var lectureImage: ImageView = itemView.findViewById(R.id.subject_image)
-
+        var dayItem = itemView.findViewById<TextView>(R.id.dayname)
 
         init {
             itemView.setOnClickListener {
@@ -47,18 +37,18 @@ class MyRecyclerAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val inflater: LayoutInflater = LayoutInflater.from(context)
-        val view: View = inflater.inflate(R.layout.my_row, parent, false)
-        return MyViewHolder(view, mListener)
+        val inflater: LayoutInflater = LayoutInflater.from(c)
+        val view: View = inflater.inflate(R.layout.schedule_item, parent, false)
+        return ScheduleAdapter.MyViewHolder(view, mListener)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.myText1.setText(data1[position])
-        holder.myText2.setText(data2[position])
-        holder.lectureImage.setImageResource(images[position])
+        holder.dayItem.setText(dayarr[position])
     }
 
     override fun getItemCount(): Int {
-        return data1.size
+        return dayarr.size
     }
+
+
 }
