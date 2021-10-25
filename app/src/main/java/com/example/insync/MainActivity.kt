@@ -54,17 +54,35 @@ class MainActivity : AppCompatActivity() {
             // TODO: Toast login please
         }
     }
+
+
     // The following function performs login provided email, password (String) as input
     fun loginWithEmailAndPassword(email:String, password:String){
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener{
             task->
             if(task.isSuccessful){
                 val userFromFirebase:FirebaseUser = task.result!!.user!!
-                val userID:String = userFromFirebase.uid.toString()
+                val userID:String = userFromFirebase.uid
                 Log.i("FIREBASE : ", "USER ID: $userID AT MainActivity Through Login")
-                val insyncUser = User(userFromFirebase.uid,userFromFirebase.email!! )
+
                 // TODO: Collect data from firestore
-                // TODO: Redirect to the home page & pass the uid with it
+                FirebaseFirestore.getInstance().collection("users").document(userID).get().addOnCompleteListener {
+                        task_two->
+                    if(task_two.isSuccessful){
+                        val userFields = task_two.result!!
+
+                        val insyncUser = User(userFromFirebase.uid,userFromFirebase.email!!, userFields["name"] as String,
+                            userFields["student"] as Boolean
+                        )
+                        Log.i("FIREBASE :", "Retrieved data for ${insyncUser.email}")
+                        // TODO: Redirect to home page & pass insyncUser object
+
+
+                    }else{
+                        Log.d("FIREBASE :", "FAILED FOR $userID")
+                        // TODO: Toast unable to retrieve data
+                    }
+                }
             }
             else{
                 Log.i("FIREBASE : ", "EMAIL : $email | PASSWORD: $password")

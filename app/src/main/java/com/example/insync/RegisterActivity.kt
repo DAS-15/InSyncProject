@@ -21,7 +21,7 @@ class RegisterActivity : AppCompatActivity() {
             if(task.isSuccessful){
 
                 val userFromFirebase: FirebaseUser = task.result!!.user!!
-                val insyncUser:User = User(userFromFirebase.uid, user.email, user.name, user.student)
+                val insyncUser = User(userFromFirebase.uid, user.email, user.name, user.student)
 
                 // hashmap of values to be added
                 val dataMap = hashMapOf<String, Any>(
