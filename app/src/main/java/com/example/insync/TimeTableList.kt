@@ -4,8 +4,11 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -19,7 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 
 
-class TimeTableList : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class TimeTableList : AppCompatActivity() {
 
     lateinit var recyclerView: RecyclerView
 
@@ -45,12 +48,12 @@ class TimeTableList : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         setContentView(R.layout.activity_time_table_list)
 
 
-        drawerLayout = findViewById(R.id.student_drawar_layout)
-        navigationView = findViewById(R.id.student_nav_view)
-        toolbar = findViewById(R.id.studenttopAppBar)
+        drawerLayout = findViewById(R.id.drawar_layout)
+        navigationView = findViewById(R.id.nav_view)
+        toolbar = findViewById(R.id.topAppBar)
 
         // Recycler View Setup
-        recyclerView = findViewById(R.id.studentRecyclerView)
+        recyclerView = findViewById(R.id.RecyclerView)
 
         s1 = resources.getStringArray(R.array.subject_name)
         s2 = resources.getStringArray(R.array.lecture_timing)
@@ -69,7 +72,39 @@ class TimeTableList : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         recyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolbar, 0, 0
+        )
+        drawerLayout.addDrawerListener(toggle)
 
+        navigationView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.calender -> {
+                    val calintent = Intent(applicationContext, ScheduleActivity::class.java)
+                    startActivity(calintent)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    return@setNavigationItemSelectedListener true
+                }
+                else -> return@setNavigationItemSelectedListener false
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.topmenu,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item!!.itemId == R.id.nav_button){
+            if(drawerLayout.isDrawerOpen(Gravity.RIGHT)){
+                drawerLayout.closeDrawer(Gravity.RIGHT)
+            }
+            else{
+                drawerLayout.openDrawer(Gravity.RIGHT)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     fun CreateNewEvent(view: android.view.View) {
@@ -79,15 +114,6 @@ class TimeTableList : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
     fun openNav(view: android.view.View) {
         drawerLayout.openDrawer(navigationView)
-    }
-
-    // Nav drawar onclick listener
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        Toast.makeText(this, item.itemId.toString(), Toast.LENGTH_SHORT).show()
-        Log.i("itemid", item.itemId.toString())
-        drawerLayout.closeDrawer(GravityCompat.START)
-        return true
     }
 
     // function to retrieve data for student

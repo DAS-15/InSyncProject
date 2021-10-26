@@ -36,7 +36,7 @@ class TimeTableListStudent : AppCompatActivity(), NavigationView.OnNavigationIte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_time_table_list)
+        setContentView(R.layout.activity_time_table_list_student)
 
         StudentdrawerLayout = findViewById(R.id.student_drawar_layout)
         StudentnavigationView = findViewById(R.id.student_nav_view)
@@ -61,9 +61,6 @@ class TimeTableListStudent : AppCompatActivity(), NavigationView.OnNavigationIte
         })
         StudentrecyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-    }
-
-    fun CreateNewEvent(view: android.view.View) {
     }
 
     fun openNav(view: android.view.View) {
