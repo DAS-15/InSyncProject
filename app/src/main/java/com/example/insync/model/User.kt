@@ -6,6 +6,7 @@ class User {
     var name:String = "NONE"
     var student:Boolean = true
     var classRoomCode:String = "NONE"
+    var batchCode:String = "NONE"
     var password:String = "NONE"
     var profileComplete:Int = 0;
 
@@ -25,5 +26,4 @@ class User {
         this.name = name
         this.email = email
     }
-
 }

@@ -49,7 +49,6 @@ class MainActivity : AppCompatActivity() {
 
             Log.i("FIREBASE : ", "USER ID: $userID AT MainActivity Through Redirecting")
             changePageToHome(userFromFirebase)
-
         }
         else{
             // TODO: Toast login please

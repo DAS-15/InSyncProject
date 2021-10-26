@@ -18,6 +18,11 @@ import android.net.Uri
 import android.util.Log
 import android.view.MenuItem
 import androidx.core.view.GravityCompat
+import com.example.insync.model.User
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 
 
 class TimeTableList : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -87,4 +92,41 @@ class TimeTableList : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    // function to retrieve data for student
+    fun retrieveDataForStudent(insyncUser: User){
+        var dayToday = "Monday" // to be retrieved using date time
+        var studentDataForToday = FirebaseFirestore.getInstance().collection("classroomDB").
+        document(insyncUser.classRoomCode).collection("weekday").document(dayToday).collection("events").get().addOnCompleteListener{
+            task->
+            if(task.isSuccessful){
+                var result = task.result!!
+                displayReceivedData(result)
+            }else{
+
+            }
+        }
+    }
+
+    // function to retrieve data for teacher
+    fun retrieveDataForTeacher(insyncUser: User){
+
+        var dayToday = "Monday"
+        var teacherDataForToday = FirebaseFirestore.getInstance().collection("teacherDB").
+                document(insyncUser.uid).collection("weekday").document(dayToday).collection("events").get().addOnCompleteListener {
+                    task->
+            if(task.isSuccessful){
+                var result = task.result!!
+                displayReceivedData(result)
+            }else{
+
+            }
+        }
+
+    }
+
+    private fun displayReceivedData(data:QuerySnapshot){
+
+    }
+
 }
