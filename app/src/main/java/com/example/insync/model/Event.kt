@@ -14,6 +14,19 @@ class Event {
     var owner:String = "NONE"
 
     public constructor(){}
+
+    public constructor(name:String, classRoomCode:String, link:String, weekday:String, startAt:String, endAt:String, desc:String, owner:String){
+        this.name = name
+        this.classRoomCode = classRoomCode
+        this.lectureLink = link
+        this.weekday = weekday
+        this.startAt = startAt
+        this.endAt = endAt
+        this.description = desc
+        this.owner = owner
+
+    }
+
     public constructor(data:DocumentSnapshot){
 
         this.name = data["name"] as String
@@ -24,8 +37,5 @@ class Event {
         this.endAt = data["endAt"] as String
         this.description = data["desc"] as String
         this.owner = data["owner"] as String
-
-
-
     }
 }
