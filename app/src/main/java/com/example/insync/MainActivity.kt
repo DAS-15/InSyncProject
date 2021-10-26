@@ -95,6 +95,9 @@ class MainActivity : AppCompatActivity() {
                     Log.i("FIREBASE : ", "EMAIL : $email | PASSWORD: $password")
                     // TODO: toast failed
                     Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
+
+
+
                 }
             }
     }
