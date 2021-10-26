@@ -21,12 +21,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        redirectUserToHomePage()
         setContentView(R.layout.activity_main)
 
         myEmail = findViewById(R.id.emailEditText)
         myPassword = findViewById(R.id.passwordEditText)
 
-        redirectUserToHomePage()
+
 
     }
 

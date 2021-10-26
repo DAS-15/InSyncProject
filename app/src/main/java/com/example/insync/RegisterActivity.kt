@@ -31,9 +31,13 @@ class RegisterActivity : AppCompatActivity() {
                     "student" to insyncUser.student
                 )
                 // uploading data to database
-                FirebaseFirestore.getInstance().collection("users").add(dataMap).addOnCompleteListener {
+                FirebaseFirestore.getInstance().collection("users").document(insyncUser.uid).set(dataMap).addOnCompleteListener {
                     task_two->
                     if(task_two.isSuccessful){
+                        // adding data to the teacherDB
+                        if(!insyncUser.student){
+                            FirebaseFirestore.getInstance().collection("teacherDB").document(insyncUser.uid).set(dataMap)
+                        }
                         Log.i("FIREBASE :", "DATA UPLOADED FOR ${insyncUser.uid} | ${insyncUser.email}")
                         // TODO: Navigate to homepage & pass a new insyncUser object
                     }else{

@@ -15,7 +15,7 @@ class AddEventActivity : AppCompatActivity() {
     fun createEvent(insyncUser: User, classEvent: Event){
         val dataMap = hashMapOf<String, Any>(
             "name" to classEvent.name,
-            "classCode" to classEvent.classRoomCode,
+            "classcode" to classEvent.classRoomCode,
             "startAt" to classEvent.startAt,
             "endAt" to classEvent.endAt,
             "weekday" to classEvent.weekday,
@@ -23,6 +23,7 @@ class AddEventActivity : AppCompatActivity() {
             "link" to classEvent.lectureLink,
             "desc" to classEvent.description
         )
+
         // Adding info to teacher's personal DB
         FirebaseFirestore.getInstance().collection("teacherDB").document(insyncUser.uid).
         collection("weekdays").document(classEvent.weekday).collection("events").add(dataMap)

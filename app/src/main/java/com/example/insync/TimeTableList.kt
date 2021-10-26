@@ -1,21 +1,20 @@
 package com.example.insync
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.navigation.NavigationView
-import android.content.Intent
-import android.net.Uri
-import android.util.Log
-import android.view.MenuItem
-import androidx.core.view.GravityCompat
+import com.example.insync.model.Event
 import com.example.insync.model.User
-import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.DocumentSnapshot
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 
@@ -67,7 +66,7 @@ class TimeTableList : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             }
         })
         recyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
 
     }
@@ -86,13 +85,14 @@ class TimeTableList : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         Toast.makeText(this, item.itemId.toString(), Toast.LENGTH_SHORT).show()
         Log.i("itemid", item.itemId.toString())
-        drawerLayout.closeDrawer(GravityCompat.START);
-        return true;
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
     }
 
     // function to retrieve data for student
-    fun retrieveDataForStudent(insyncUser: User){
-        var dayToday = "Monday" // to be retrieved using date time
+    fun retrieveDataForStudent(insyncUser: User, day: String){
+
+        val dayToday = day // to be retrieved using date time
         var studentDataForToday = FirebaseFirestore.getInstance().collection("classroomDB").
         document(insyncUser.classRoomCode).collection("weekday").document(dayToday).collection("events").get().addOnCompleteListener{
             task->
@@ -106,14 +106,14 @@ class TimeTableList : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     }
 
     // function to retrieve data for teacher
-    fun retrieveDataForTeacher(insyncUser: User){
+    fun retrieveDataForTeacher(insyncUser: User, day:String){
 
-        var dayToday = "Monday"
+        val dayToday = day
         var teacherDataForToday = FirebaseFirestore.getInstance().collection("teacherDB").
                 document(insyncUser.uid).collection("weekday").document(dayToday).collection("events").get().addOnCompleteListener {
                     task->
             if(task.isSuccessful){
-                var result = task.result!!
+                val result = task.result!!
                 displayReceivedData(result)
             }else{
 
@@ -123,7 +123,11 @@ class TimeTableList : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     }
 
     private fun displayReceivedData(data:QuerySnapshot){
-
+        val eventArray = arrayListOf<Event>()
+        for (i in data){
+            eventArray.add(Event(i))
+        }
+        // TODO : Use the eventArray to display the data
     }
 
 }
