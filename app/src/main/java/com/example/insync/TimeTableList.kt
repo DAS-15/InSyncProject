@@ -44,6 +44,7 @@ class TimeTableList : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_time_table_list)
 
+
         drawerLayout = findViewById(R.id.student_drawar_layout)
         navigationView = findViewById(R.id.student_nav_view)
         toolbar = findViewById(R.id.studenttopAppBar)

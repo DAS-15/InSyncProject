@@ -26,5 +26,6 @@ class Event {
         this.owner = data["owner"] as String
 
 
+
     }
 }
