@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
                         userFields["name"] as String,
                         userFields["student"] as Boolean
                     )
-                    var insyncUserArray = arrayListOf<String>() ;
+                    var insyncUserArray = arrayListOf<String>();
                     insyncUserArray.add(insyncUser.uid)
                     insyncUserArray.add(insyncUser.email)
                     insyncUserArray.add(insyncUser.name)
@@ -95,7 +95,6 @@ class MainActivity : AppCompatActivity() {
                     Log.i("FIREBASE : ", "EMAIL : $email | PASSWORD: $password")
                     // TODO: toast failed
                     Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
-
 
 
                 }
