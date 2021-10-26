@@ -34,7 +34,7 @@ class AddEventActivity : AppCompatActivity() {
                     // Adding info to public DB
                     FirebaseFirestore.getInstance().collection("classroomDB")
                         .document(classEvent.classRoomCode).collection("weekdays").document(classEvent.weekday)
-                        .collection("events").add(dataMap).addOnCompleteListener {
+                        .collection("events").document("${classEvent.classRoomCode}_${classEvent.name}").set(dataMap).addOnCompleteListener {
                             task_two->
                             if(task_two.isSuccessful){
                                 // TODO: Toast Successful, redirect to homepage
