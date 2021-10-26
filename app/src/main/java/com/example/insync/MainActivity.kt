@@ -20,6 +20,27 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun changePageToHome(userFromFirebase:FirebaseUser){
+        val userID:String = userFromFirebase.uid
+        FirebaseFirestore.getInstance().collection("users").document(userID).get().addOnCompleteListener {
+                task_two->
+            if(task_two.isSuccessful){
+                val userFields = task_two.result!!
+
+                val insyncUser = User(userFromFirebase.uid,userFromFirebase.email!!, userFields["name"] as String,
+                    userFields["student"] as Boolean
+                )
+                Log.i("FIREBASE :", "Retrieved data for ${insyncUser.email}")
+                // TODO: Redirect to home page & pass insyncUser object
+
+
+            }else{
+                Log.d("FIREBASE :", "FAILED FOR $userID")
+                // TODO: Toast unable to retrieve data
+            }
+        }
+    }
+
     // The following function redirects the user if it has already logged in
     fun redirectUserToHomePage(){
         var userFromFirebase = FirebaseAuth.getInstance().currentUser
@@ -27,27 +48,7 @@ class MainActivity : AppCompatActivity() {
             val userID:String = userFromFirebase.uid
 
             Log.i("FIREBASE : ", "USER ID: $userID AT MainActivity Through Redirecting")
-
-
-
-            FirebaseFirestore.getInstance().collection("users").document(userID).get().addOnCompleteListener {
-                task_two->
-                if(task_two.isSuccessful){
-                    val userFields = task_two.result!!
-
-                    val insyncUser = User(userFromFirebase.uid,userFromFirebase.email!!, userFields["name"] as String,
-                        userFields["student"] as Boolean
-                    )
-                    Log.i("FIREBASE :", "Retrieved data for ${insyncUser.email}")
-                    // TODO: Redirect to home page & pass insyncUser object
-
-
-                }else{
-                    Log.d("FIREBASE :", "FAILED FOR $userID")
-                    // TODO: Toast unable to retrieve data
-                }
-            }
-
+            changePageToHome(userFromFirebase)
 
         }
         else{
@@ -65,24 +66,8 @@ class MainActivity : AppCompatActivity() {
                 val userID:String = userFromFirebase.uid
                 Log.i("FIREBASE : ", "USER ID: $userID AT MainActivity Through Login")
 
-                // TODO: Collect data from firestore
-                FirebaseFirestore.getInstance().collection("users").document(userID).get().addOnCompleteListener {
-                        task_two->
-                    if(task_two.isSuccessful){
-                        val userFields = task_two.result!!
+                changePageToHome(userFromFirebase)
 
-                        val insyncUser = User(userFromFirebase.uid,userFromFirebase.email!!, userFields["name"] as String,
-                            userFields["student"] as Boolean
-                        )
-                        Log.i("FIREBASE :", "Retrieved data for ${insyncUser.email}")
-                        // TODO: Redirect to home page & pass insyncUser object
-
-
-                    }else{
-                        Log.d("FIREBASE :", "FAILED FOR $userID")
-                        // TODO: Toast unable to retrieve data
-                    }
-                }
             }
             else{
                 Log.i("FIREBASE : ", "EMAIL : $email | PASSWORD: $password")
