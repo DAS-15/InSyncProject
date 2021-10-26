@@ -13,6 +13,8 @@ class Event {
     var description:String = "NONE"
     var owner:String = "NONE"
 
+
+    
     public constructor(){}
 
     public constructor(name:String, classRoomCode:String, link:String, weekday:String, startAt:String, endAt:String, desc:String, owner:String){
