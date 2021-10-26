@@ -1,14 +1,9 @@
 package com.example.insync
 
-import android.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -45,12 +40,12 @@ class TimeTableList : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_time_table_list)
 
-        drawerLayout = findViewById(R.id.drawar_layout)
-        navigationView = findViewById(R.id.nav_view)
-        toolbar = findViewById(R.id.topAppBar)
+        drawerLayout = findViewById(R.id.student_drawar_layout)
+        navigationView = findViewById(R.id.student_nav_view)
+        toolbar = findViewById(R.id.studenttopAppBar)
 
         // Recycler View Setup
-        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView = findViewById(R.id.studentRecyclerView)
 
         s1 = resources.getStringArray(R.array.subject_name)
         s2 = resources.getStringArray(R.array.lecture_timing)
@@ -68,6 +63,8 @@ class TimeTableList : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         })
         recyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+
+
     }
 
     fun CreateNewEvent(view: android.view.View) {

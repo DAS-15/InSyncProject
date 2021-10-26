@@ -13,7 +13,7 @@ class ScheduleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule)
 
-        val recyclerView : RecyclerView = findViewById(R.id.recyclerView)
+        val recyclerView : RecyclerView = findViewById(R.id.studentRecyclerView)
 
         val days = arrayOf<String>("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
 
