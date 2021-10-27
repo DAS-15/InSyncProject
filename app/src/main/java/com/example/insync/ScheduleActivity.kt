@@ -23,6 +23,7 @@ class ScheduleActivity : AppCompatActivity() {
             override fun onItemClick(position: Int) {
                 Toast.makeText(applicationContext, days[position], Toast.LENGTH_SHORT).show()
                 val i = Intent(applicationContext, TimeTableList::class.java)
+                i.putExtra("daySelected", days[position])
                 startActivity(i)
             }
         })

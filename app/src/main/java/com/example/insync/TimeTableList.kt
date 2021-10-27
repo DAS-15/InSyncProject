@@ -23,7 +23,6 @@ class TimeTableList : AppCompatActivity() {
     lateinit var s1: MutableList<String>
     lateinit var s2: MutableList<String>
     lateinit var urlLinks: MutableList<String>
-    lateinit var eArray: ArrayList<Event>
 
     var images: Array<Int> = arrayOf(
         R.mipmap.ic_launcher,
@@ -46,7 +45,8 @@ class TimeTableList : AppCompatActivity() {
             urlLinks.add("https://www.google.com/")
         }
 
-        retrieveDataForTeacher(gUser!!, "Monday")
+
+//        retrieveDataForTeacher(gUser, "Monday")
 
         val myRecyclerAdapter: MyRecyclerAdapter =
             MyRecyclerAdapter(applicationContext, s1, s2, images)
@@ -105,7 +105,6 @@ class TimeTableList : AppCompatActivity() {
         for (i in data) {
             eventArray.add(Event(i))
         }
-        eArray = eventArray
         s1.clear()
         s2.clear()
         urlLinks.clear()

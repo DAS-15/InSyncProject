@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.insync.MainActivity.Companion.gUser
 import com.example.insync.model.Event
 import com.example.insync.model.User
 import com.google.firebase.auth.FirebaseAuth
@@ -18,6 +19,7 @@ class TimeTableListStudent : AppCompatActivity() {
 
     lateinit var Students1: MutableList<String>
     lateinit var Students2: MutableList<String>
+    lateinit var StudenturlLinks: MutableList<String>
 
     var Studentimages: Array<Int> = arrayOf(
         R.mipmap.ic_launcher,
@@ -37,10 +39,18 @@ class TimeTableListStudent : AppCompatActivity() {
 
         Students1 = resources.getStringArray(R.array.subject_name).toMutableList()
         Students2 = resources.getStringArray(R.array.lecture_timing).toMutableList()
+        StudenturlLinks = mutableListOf()
+        for (i in 0..5) {
+            StudenturlLinks.add("https://www.google.com/")
+        }
 
-        val StudentmyRecyclerAdapter: MyRecyclerAdapter = MyRecyclerAdapter(this, Students1, Students2, Studentimages)
+        retrieveDataForStudent(gUser, "Monday")
+
+        val StudentmyRecyclerAdapter: MyRecyclerAdapter =
+            MyRecyclerAdapter(this, Students1, Students2, Studentimages)
         StudentrecyclerView.adapter = StudentmyRecyclerAdapter
-        StudentmyRecyclerAdapter.setOnItemClickListener(object : MyRecyclerAdapter.onItemClickListener {
+        StudentmyRecyclerAdapter.setOnItemClickListener(object :
+            MyRecyclerAdapter.onItemClickListener {
             override fun onItemClick(position: Int) {
                 Toast.makeText(applicationContext, Students1[position], Toast.LENGTH_SHORT).show()
                 val url = "https://www.google.com"
@@ -54,41 +64,51 @@ class TimeTableListStudent : AppCompatActivity() {
     }
 
     // function to retrieve data for student
-    fun retrieveDataForStudent(insyncUser: User, day: String){
+    fun retrieveDataForStudent(insyncUser: User, day: String) {
 
         val dayToday = day // to be retrieved using date time
-        var studentDataForToday = FirebaseFirestore.getInstance().collection("classroomDB").
-        document(insyncUser.classRoomCode).collection("weekday").document(dayToday).collection("events").get().addOnCompleteListener{
-                task->
-            if(task.isSuccessful){
-                var result = task.result!!
-                displayReceivedData(result)
-            }else{
+        var studentDataForToday = FirebaseFirestore.getInstance().collection("classroomDB")
+            .document(insyncUser.classRoomCode).collection("weekday").document(dayToday)
+            .collection("events").get().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    var result = task.result!!
+                    displayReceivedData(result)
+                } else {
 
+                }
             }
-        }
     }
 
-    private fun displayReceivedData(data: QuerySnapshot){
+    private fun displayReceivedData(data: QuerySnapshot) {
         val eventArray = arrayListOf<Event>()
-        for (i in data){
+        for (i in data) {
             eventArray.add(Event(i))
         }
-        // TODO : Use the eventArray to display the data
+        Students1.clear()
+        Students2.clear()
+        StudenturlLinks.clear()
+        for (i in 0..5) {
+            Students1[i] = eventArray[i].name
+            Students2[i] = eventArray[i].startAt
+            StudenturlLinks[i] = eventArray[i].lectureLink
+        }
     }
 
     fun homeIntentFun(item: android.view.MenuItem) {
         val intent = Intent(applicationContext, TimeTableList::class.java)
         startActivity(intent)
     }
+
     fun scheduleIntentFun(item: android.view.MenuItem) {
         val intent = Intent(applicationContext, ScheduleActivity::class.java)
         startActivity(intent)
     }
+
     fun accountIntentFun(item: android.view.MenuItem) {
         val intent = Intent(applicationContext, TimeTableList::class.java)
         startActivity(intent)
     }
+
     fun logoutIntentFun(item: android.view.MenuItem) {
 
 

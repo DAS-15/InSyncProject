@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var myPassword: EditText
 
     companion object{
-        var gUser : User? = null
+        var gUser : User = User("demo@gmail.com")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
