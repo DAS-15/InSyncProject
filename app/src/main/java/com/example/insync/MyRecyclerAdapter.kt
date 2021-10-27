@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 class MyRecyclerAdapter(
     ct: Context,
-    s1: Array<String>,
-    s2: Array<String>,
+    s1: MutableList<String>,
+    s2: MutableList<String>,
     img: Array<Int>
 ) : RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder>() {
 

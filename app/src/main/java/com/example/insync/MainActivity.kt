@@ -15,13 +15,13 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit  var insyncUser: User
+    lateinit var insyncUser: User
     lateinit var myEmail: EditText
     lateinit var myPassword: EditText
 
-
-
-
+    companion object{
+        var gUser : User? = null
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         myEmail = findViewById(R.id.emailEditText)
         myPassword = findViewById(R.id.passwordEditText)
-
 
 
     }
@@ -47,11 +46,13 @@ class MainActivity : AppCompatActivity() {
                         userFields["name"] as String,
                         userFields["student"] as Boolean
                     )
+                    gUser = insyncUser
                     var insyncUserArray = arrayListOf<String?>();
                     insyncUserArray.add(insyncUser.uid)
                     insyncUserArray.add(insyncUser.email)
                     insyncUserArray.add(insyncUser.name)
                     insyncUserArray.add(insyncUser.student.toString())
+                    insyncUserArray.add(insyncUser.password)
                     Log.i("FIREBASE :", "Retrieved data for ${insyncUser.email}")
 
                     val intent: Intent = Intent(applicationContext, TimeTableList::class.java)
@@ -113,11 +114,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun open_registration(view: View)
-    {
-        var intent: Intent = Intent(applicationContext,RegisterActivity::class.java)
+    fun open_registration(view: View) {
+        var intent: Intent = Intent(applicationContext, RegisterActivity::class.java)
         startActivity(intent)
     }
-
-
 }

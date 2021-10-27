@@ -4,17 +4,11 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.insync.model.Event
 import com.example.insync.model.User
-import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
@@ -22,8 +16,8 @@ import com.google.firebase.firestore.QuerySnapshot
 class TimeTableListStudent : AppCompatActivity() {
     lateinit var StudentrecyclerView: RecyclerView
 
-    lateinit var Students1: Array<String>
-    lateinit var Students2: Array<String>
+    lateinit var Students1: MutableList<String>
+    lateinit var Students2: MutableList<String>
 
     var Studentimages: Array<Int> = arrayOf(
         R.mipmap.ic_launcher,
@@ -41,8 +35,8 @@ class TimeTableListStudent : AppCompatActivity() {
         // Recycler View Setup
         StudentrecyclerView = findViewById(R.id.studentRecyclerView)
 
-        Students1 = resources.getStringArray(R.array.subject_name)
-        Students2 = resources.getStringArray(R.array.lecture_timing)
+        Students1 = resources.getStringArray(R.array.subject_name).toMutableList()
+        Students2 = resources.getStringArray(R.array.lecture_timing).toMutableList()
 
         val StudentmyRecyclerAdapter: MyRecyclerAdapter = MyRecyclerAdapter(this, Students1, Students2, Studentimages)
         StudentrecyclerView.adapter = StudentmyRecyclerAdapter
