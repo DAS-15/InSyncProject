@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.insync.model.Event
@@ -37,28 +38,16 @@ class TimeTableList : AppCompatActivity() {
         R.mipmap.ic_launcher
     )
 
-    // Drawer Layout
-
-    lateinit var drawerLayout: DrawerLayout
-    lateinit var navigationView: NavigationView
-    lateinit var toolbar: Toolbar
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_time_table_list)
 
-
-        drawerLayout = findViewById(R.id.drawar_layout)
-        navigationView = findViewById(R.id.nav_view)
-        toolbar = findViewById(R.id.topAppBar)
-
-        // Recycler View Setup
-        recyclerView = findViewById(R.id.RecyclerView)
+        recyclerView = findViewById(R.id.recyclerView)
 
         s1 = resources.getStringArray(R.array.subject_name)
         s2 = resources.getStringArray(R.array.lecture_timing)
 
-        val myRecyclerAdapter: MyRecyclerAdapter = MyRecyclerAdapter(this, s1, s2, images)
+        val myRecyclerAdapter: MyRecyclerAdapter = MyRecyclerAdapter(applicationContext, s1, s2, images)
         recyclerView.adapter = myRecyclerAdapter
         myRecyclerAdapter.setOnItemClickListener(object : MyRecyclerAdapter.onItemClickListener {
             override fun onItemClick(position: Int) {
@@ -70,24 +59,8 @@ class TimeTableList : AppCompatActivity() {
             }
         })
         recyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
 
-        val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar, 0, 0
-        )
-        drawerLayout.addDrawerListener(toggle)
-
-        navigationView.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.calender -> {
-                    val calintent = Intent(applicationContext, ScheduleActivity::class.java)
-                    startActivity(calintent)
-                    drawerLayout.closeDrawer(GravityCompat.START)
-                    return@setNavigationItemSelectedListener true
-                }
-                else -> return@setNavigationItemSelectedListener false
-            }
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -95,41 +68,9 @@ class TimeTableList : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item!!.itemId == R.id.nav_button){
-            if(drawerLayout.isDrawerOpen(Gravity.RIGHT)){
-                drawerLayout.closeDrawer(Gravity.RIGHT)
-            }
-            else{
-                drawerLayout.openDrawer(Gravity.RIGHT)
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     fun CreateNewEvent(view: android.view.View) {
         val intent = Intent(applicationContext, AddEventActivity::class.java)
         startActivity(intent)
-    }
-
-    fun openNav(view: android.view.View) {
-        drawerLayout.openDrawer(navigationView)
-    }
-
-    // function to retrieve data for student
-    fun retrieveDataForStudent(insyncUser: User, day: String){
-
-        val dayToday = day // to be retrieved using date time
-        var studentDataForToday = FirebaseFirestore.getInstance().collection("classroomDB").
-        document(insyncUser.classRoomCode).collection("weekday").document(dayToday).collection("events").get().addOnCompleteListener{
-            task->
-            if(task.isSuccessful){
-                var result = task.result!!
-                displayReceivedData(result)
-            }else{
-
-            }
-        }
     }
 
     // function to retrieve data for teacher
@@ -137,8 +78,8 @@ class TimeTableList : AppCompatActivity() {
 
         val dayToday = day
         var teacherDataForToday = FirebaseFirestore.getInstance().collection("teacherDB").
-                document(insyncUser.uid).collection("weekday").document(dayToday).collection("events").get().addOnCompleteListener {
-                    task->
+        document(insyncUser.uid).collection("weekday").document(dayToday).collection("events").get().addOnCompleteListener {
+                task->
             if(task.isSuccessful){
                 val result = task.result!!
                 displayReceivedData(result)
@@ -146,15 +87,31 @@ class TimeTableList : AppCompatActivity() {
 
             }
         }
-
     }
 
-    private fun displayReceivedData(data:QuerySnapshot){
+    private fun displayReceivedData(data: QuerySnapshot){
         val eventArray = arrayListOf<Event>()
         for (i in data){
             eventArray.add(Event(i))
         }
         // TODO : Use the eventArray to display the data
+    }
+
+    fun homeIntentFun(item: android.view.MenuItem) {
+        val intent = Intent(applicationContext, TimeTableList::class.java)
+        startActivity(intent)
+    }
+    fun scheduleIntentFun(item: android.view.MenuItem) {
+        val intent = Intent(applicationContext, ScheduleActivity::class.java)
+        startActivity(intent)
+    }
+    fun accountIntentFun(item: android.view.MenuItem) {
+        val intent = Intent(applicationContext, TimeTableList::class.java)
+        startActivity(intent)
+    }
+    fun logoutIntentFun(item: android.view.MenuItem) {
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        startActivity(intent)
     }
 
 }

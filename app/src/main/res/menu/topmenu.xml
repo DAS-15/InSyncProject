@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <group android:checkableBehavior="single">
+    <group>
+        <item
+            android:id="@+id/nav_home"
+            android:title="Home"
+            android:icon="@mipmap/ic_launcher_round"
+            android:onClick="homeIntentFun"/>
+
         <item
             android:id="@+id/calender"
             android:icon="@drawable/calendericon"
-            android:title="Schedule" />
+            android:title="Schedule"
+            android:onClick="scheduleIntentFun"/>
 
         <item
             android:id="@+id/account"
             android:icon="@drawable/accounticon"
-            android:title="Account" />
+            android:title="Account"
+            android:onClick="accountIntentFun"/>
     </group>
 
     <group>
         <item
             android:id="@+id/logout"
-            android:title="Logout" />
+            android:title="Logout"
+            android:icon="@mipmap/ic_launcher_round"
+            android:onClick="logoutIntentFun"/>
     </group>
 </menu>

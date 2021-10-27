@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.insync">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,6 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.InSync">
+        <activity
+            android:name=".TimeTableListTeacher"
+            android:exported="true"
+            android:label="@string/title_activity_time_table_list_teacher"
+            android:theme="@style/Theme.InSync.NoActionBar" />
         <activity
             android:name=".TimeTableListStudent"
             android:exported="true" />
