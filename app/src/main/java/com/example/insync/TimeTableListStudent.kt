@@ -95,6 +95,9 @@ class TimeTableListStudent : AppCompatActivity() {
         startActivity(intent)
     }
     fun logoutIntentFun(item: android.view.MenuItem) {
+
+        // TODO: Write or call logout function here
+
         val intent = Intent(applicationContext, TimeTableList::class.java)
         startActivity(intent)
     }
