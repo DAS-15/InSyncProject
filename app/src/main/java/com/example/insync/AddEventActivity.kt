@@ -69,7 +69,7 @@ class AddEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
 
         // Adding info to teacher's personal DB
         FirebaseFirestore.getInstance().collection("teacherDB").document(insyncUser.uid).
-        collection("weekdays").document(classEvent.weekday).collection("events").add(dataMap)
+        collection("weekdays").document(classEvent.weekday).collection("events").document("${classEvent.classRoomCode}_${classEvent.name}").set(dataMap)
             .addOnCompleteListener {
                 task->
                 if(task.isSuccessful){

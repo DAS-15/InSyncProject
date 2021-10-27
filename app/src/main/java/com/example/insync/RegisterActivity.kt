@@ -29,10 +29,10 @@ class RegisterActivity : AppCompatActivity() {
         Password = findViewById(R.id.Password)
         ConfirmPassword = findViewById(R.id.ConfirmPassword)
 
-        Name.text.clear()
-        Email.text.clear()
-        Password.text.clear()
-        ConfirmPassword.text.clear()
+//        Name.text.clear()
+//        Email.text.clear()
+//        Password.text.clear()
+//        ConfirmPassword.text.clear()
     }
 
     // The following function is used to register the user
@@ -136,6 +136,8 @@ class RegisterActivity : AppCompatActivity() {
         {   var student = if(Privilege.selectedItem.toString() == "Student") true else false
 
             var new_user:User = User("NONE",Email.text.toString(),Name.text.toString(),student)
+            new_user.password = Password.text.toString()
+
             registerUser(new_user)
         }
         else
