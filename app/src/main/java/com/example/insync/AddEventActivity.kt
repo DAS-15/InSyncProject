@@ -92,7 +92,7 @@ class AddEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
                         }
 
                 }else{
-                    // TODO: Toast Failed
+
                     Toast.makeText(this,"Failed Task1: Failed Task2 ",Toast.LENGTH_SHORT).show()
                 }
             }

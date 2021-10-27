@@ -60,7 +60,6 @@ class RegisterActivity : AppCompatActivity() {
                             FirebaseFirestore.getInstance().collection("teacherDB").document(insyncUser.uid).set(dataMap)
                         }
                         Log.i("FIREBASE :", "DATA UPLOADED FOR ${insyncUser.uid} | ${insyncUser.email}")
-                        // TODO: Navigate to homepage & pass a new insyncUser object
 
                         Toast.makeText(this, "Registration Successful!", Toast.LENGTH_SHORT).show()
 
@@ -76,14 +75,14 @@ class RegisterActivity : AppCompatActivity() {
                     }
                     else{
                         Log.d("FIREBASE :", "Failed registering for ${user.email}")
-                        // TODO: Toast Failed
+
                         Toast.makeText(this, "Registration failed (Task2)", Toast.LENGTH_SHORT).show()
                     }
                 }
 
             }else{
                 Log.d("FIREBASE :", "Failed registering for ${user.email}")
-                // TODO: Toast Failed
+
                 Toast.makeText(this, "Task 1 FAIL", Toast.LENGTH_SHORT).show()
             }
         }

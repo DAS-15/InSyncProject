@@ -53,14 +53,14 @@ class MainActivity : AppCompatActivity() {
                     insyncUserArray.add(insyncUser.name)
                     insyncUserArray.add(insyncUser.student.toString())
                     Log.i("FIREBASE :", "Retrieved data for ${insyncUser.email}")
-                    // TODO: Redirect to home page & pass insyncUser object
+
                     val intent: Intent = Intent(applicationContext, TimeTableList::class.java)
                     intent.putStringArrayListExtra("insyncUser", insyncUserArray)
                     startActivity(intent)
                     Toast.makeText(this, "Intent to next activity", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.d("FIREBASE :", "FAILED FOR $userID")
-                    // TODO: Toast unable to retrieve data
+
                     Toast.makeText(
                         this,
                         "Unable to retrieve data\nPlease try again",
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
             changePageToHome(userFromFirebase)
 
         } else {
-            // TODO: Toast login please
+
             Toast.makeText(this, "Please Login", Toast.LENGTH_SHORT).show()
         }
     }
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
                     changePageToHome(userFromFirebase)
                 } else {
                     Log.i("FIREBASE : ", "EMAIL : $email | PASSWORD: $password")
-                    // TODO: toast failed
+
                     Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
 
 
