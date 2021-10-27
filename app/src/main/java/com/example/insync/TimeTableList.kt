@@ -14,11 +14,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import com.example.insync.MainActivity.Companion.gUser
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class TimeTableList : AppCompatActivity() {
 
     lateinit var recyclerView: RecyclerView
+    lateinit var myRecyclerAdapter: MyRecyclerAdapter
 
     lateinit var s1: MutableList<String>
     lateinit var s2: MutableList<String>
@@ -38,6 +41,21 @@ class TimeTableList : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerView)
 
+
+        val sdf = SimpleDateFormat("EEEE")
+        val d = Date()
+        val dayOfTheWeek: String = sdf.format(d)
+
+        val scheduleIntent = intent
+        val scheduleDay: String? = scheduleIntent.getStringExtra("daySelected")
+        Toast.makeText(this, scheduleDay + " " + dayOfTheWeek, Toast.LENGTH_SHORT).show()
+
+//        if (scheduleDay != null) {
+//            retrieveDataForTeacher(gUser, scheduleDay)
+//        } else {
+//            retrieveDataForTeacher(gUser, dayOfTheWeek)
+//        }
+
         s1 = resources.getStringArray(R.array.subject_name).toMutableList()
         s2 = resources.getStringArray(R.array.lecture_timing).toMutableList()
         urlLinks = mutableListOf()
@@ -45,10 +63,7 @@ class TimeTableList : AppCompatActivity() {
             urlLinks.add("https://www.google.com/")
         }
 
-
-//        retrieveDataForTeacher(gUser, "Monday")
-
-        val myRecyclerAdapter: MyRecyclerAdapter =
+        myRecyclerAdapter =
             MyRecyclerAdapter(applicationContext, s1, s2, images)
         recyclerView.adapter = myRecyclerAdapter
         myRecyclerAdapter.setOnItemClickListener(object : MyRecyclerAdapter.onItemClickListener {
@@ -108,10 +123,10 @@ class TimeTableList : AppCompatActivity() {
         s1.clear()
         s2.clear()
         urlLinks.clear()
-        for (i in 0..5) {
-            s1[i] = eventArray[i].name
-            s2[i] = eventArray[i].startAt
-            urlLinks[i] = eventArray[i].lectureLink
+        for (i in 0..eventArray.size) {
+            s1.add(eventArray[i].name)
+            s2.add(eventArray[i].startAt)
+            urlLinks.add(eventArray[i].lectureLink)
         }
     }
 
