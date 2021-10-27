@@ -12,9 +12,13 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.insync.model.Event
+import com.example.insync.model.User
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 
-class TimeTableListStudent : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class TimeTableListStudent : AppCompatActivity() {
     lateinit var StudentrecyclerView: RecyclerView
 
     lateinit var Students1: Array<String>
@@ -28,19 +32,10 @@ class TimeTableListStudent : AppCompatActivity(), NavigationView.OnNavigationIte
         R.mipmap.ic_launcher
     )
 
-    // Drawer Layout
-
-    lateinit var StudentdrawerLayout: DrawerLayout
-    lateinit var StudentnavigationView: NavigationView
-    lateinit var Studenttoolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_time_table_list_student)
-
-        StudentdrawerLayout = findViewById(R.id.student_drawar_layout)
-        StudentnavigationView = findViewById(R.id.student_nav_view)
-        Studenttoolbar = findViewById(R.id.studenttopAppBar)
 
         // Recycler View Setup
         StudentrecyclerView = findViewById(R.id.studentRecyclerView)
@@ -63,16 +58,47 @@ class TimeTableListStudent : AppCompatActivity(), NavigationView.OnNavigationIte
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
     }
 
-    fun openNav(view: android.view.View) {
-        StudentdrawerLayout.openDrawer(StudentnavigationView)
+    // function to retrieve data for student
+    fun retrieveDataForStudent(insyncUser: User, day: String){
+
+        val dayToday = day // to be retrieved using date time
+        var studentDataForToday = FirebaseFirestore.getInstance().collection("classroomDB").
+        document(insyncUser.classRoomCode).collection("weekday").document(dayToday).collection("events").get().addOnCompleteListener{
+                task->
+            if(task.isSuccessful){
+                var result = task.result!!
+                displayReceivedData(result)
+            }else{
+
+            }
+        }
     }
 
-    // Nav drawar onclick listener
+    private fun displayReceivedData(data: QuerySnapshot){
+        val eventArray = arrayListOf<Event>()
+        for (i in data){
+            eventArray.add(Event(i))
+        }
+        // TODO : Use the eventArray to display the data
+    }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        Toast.makeText(this, item.itemId.toString(), Toast.LENGTH_SHORT).show()
-        Log.i("itemid", item.itemId.toString())
-        StudentdrawerLayout.closeDrawer(GravityCompat.START);
-        return true;
+    fun homeIntentFun(item: android.view.MenuItem) {
+        val intent = Intent(applicationContext, TimeTableList::class.java)
+        startActivity(intent)
+    }
+    fun scheduleIntentFun(item: android.view.MenuItem) {
+        val intent = Intent(applicationContext, ScheduleActivity::class.java)
+        startActivity(intent)
+    }
+    fun accountIntentFun(item: android.view.MenuItem) {
+        val intent = Intent(applicationContext, TimeTableList::class.java)
+        startActivity(intent)
+    }
+    fun logoutIntentFun(item: android.view.MenuItem) {
+
+        // TODO: Write or call logout function here
+
+        val intent = Intent(applicationContext, TimeTableList::class.java)
+        startActivity(intent)
     }
 }
