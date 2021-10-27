@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                         userFields["name"] as String,
                         userFields["student"] as Boolean
                     )
+
                     insyncUser.classRoomCode = userFields["classcode"] as String
                     var insyncUserArray = arrayListOf<String?>();
                     insyncUserArray.add(insyncUser.uid)
