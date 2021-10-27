@@ -18,5 +18,21 @@
         <item>13:15 to 14:15</item>
         <item>14:30 to 15:30</item>
     </string-array>
+     <string-array name="Days">
+         <item>Monday</item>
+         <item>Tuesday</item>
+         <item>Wednesday</item>
+         <item>Thursday</item>
+         <item>Friday</item>
+         <item>Saturday</item>
+         <item>Sunday</item>
+      </string-array>
+
+    <string-array name = "Privilege">
+        <item>Student</item>
+        <item>Teacher</item>
+        </string-array>
+
+
 
 </resources>

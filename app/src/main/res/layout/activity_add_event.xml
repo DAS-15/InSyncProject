@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".AddEventActivity">
 
     <TextView
         android:id="@+id/CreateEvent"
@@ -36,11 +36,9 @@
         android:id="@+id/ClassCode"
         android:layout_width="290dp"
         android:layout_height="62dp"
-
-
         android:layout_marginBottom="20dp"
         android:inputType= "text"
-        android:hint="Lecture Link"
+        android:hint="Classroom Code"
         app:layout_constraintBottom_toTopOf="@+id/LectureLink"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -50,10 +48,9 @@
         android:id="@+id/LectureLink"
         android:layout_width="290dp"
         android:layout_height="62dp"
-
         android:inputType= "text"
         android:layout_marginBottom="20dp"
-        android:hint="Classroom Code"
+        android:hint="Lecture Link"
         app:layout_constraintBottom_toTopOf="@+id/Weekdays"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -64,7 +61,7 @@
         android:layout_width="290dp"
         android:layout_height="100dp"
         android:layout_marginBottom="20dp"
-        android:inputType= "textPassword"
+        android:inputType= "text"
         android:hint="Description"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,8 +70,8 @@
 
     <TimePicker
         android:id="@+id/LectureTiming"
-        android:layout_width="290dp"
-        android:layout_height="62dp"
+        android:layout_width="291dp"
+        android:layout_height="80dp"
         android:layout_marginBottom="20dp"
         android:timePickerMode="spinner"
         app:layout_constraintBottom_toTopOf="@+id/checkBox"
@@ -84,6 +81,7 @@
 
     <Spinner
         android:id="@+id/Weekdays"
+        android:entries = "@array/Days"
         android:layout_width="290dp"
         android:layout_height="62dp"
         android:layout_marginBottom="20dp"
@@ -96,11 +94,13 @@
         android:id="@+id/button"
         android:layout_width="190dp"
         android:layout_height="68dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="4dp"
+        android:backgroundTint="@color/purple_500"
+        android:onClick="on_confirm"
         android:text="Confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -110,18 +110,18 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/Description"
         app:layout_constraintEnd_toStartOf="@+id/checkBox"
-        app:layout_constraintHorizontal_bias="0.839"
+        app:layout_constraintHorizontal_bias="0.824"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LectureTiming"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintVertical_bias="0.656" />
 
     <CheckBox
         android:id="@+id/checkBox"
         android:layout_width="30dp"
         android:layout_height="38dp"
-        android:layout_marginEnd="244dp"
+        android:layout_marginEnd="240dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/Description"
-        app:layout_constraintEnd_toEndOf="parent"
 
-        />
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

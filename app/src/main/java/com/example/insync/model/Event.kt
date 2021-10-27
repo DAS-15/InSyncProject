@@ -3,7 +3,8 @@ package com.example.insync.model
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 
-class Event {
+class Event
+{
     var name:String = "NONE"
     var classRoomCode:String = "NONE"
     var lectureLink:String = "NONE"
