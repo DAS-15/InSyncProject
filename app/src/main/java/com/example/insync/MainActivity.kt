@@ -15,15 +15,19 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var insyncUser: User
+    lateinit  var insyncUser: User
     lateinit var myEmail: EditText
     lateinit var myPassword: EditText
+
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         redirectUserToHomePage()
         setContentView(R.layout.activity_main)
-
+        FirebaseAuth.getInstance().signOut()
         myEmail = findViewById(R.id.emailEditText)
         myPassword = findViewById(R.id.passwordEditText)
 
@@ -44,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                         userFields["name"] as String,
                         userFields["student"] as Boolean
                     )
-                    var insyncUserArray = arrayListOf<String>();
+                    var insyncUserArray = arrayListOf<String?>();
                     insyncUserArray.add(insyncUser.uid)
                     insyncUserArray.add(insyncUser.email)
                     insyncUserArray.add(insyncUser.name)
@@ -52,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                     Log.i("FIREBASE :", "Retrieved data for ${insyncUser.email}")
                     // TODO: Redirect to home page & pass insyncUser object
                     val intent: Intent = Intent(applicationContext, TimeTableList::class.java)
-                    intent.putExtra("insyncUser", insyncUserArray)
+                    intent.putStringArrayListExtra("insyncUser", insyncUserArray)
                     startActivity(intent)
                     Toast.makeText(this, "Intent to next activity", Toast.LENGTH_SHORT).show()
                 } else {
@@ -109,4 +113,12 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
         }
     }
+
+    fun open_registration(view: View)
+    {
+        var intent: Intent = Intent(applicationContext,RegisterActivity::class.java)
+        startActivity(intent)
+    }
+
+
 }

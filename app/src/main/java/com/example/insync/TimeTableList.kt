@@ -69,7 +69,16 @@ class TimeTableList : AppCompatActivity() {
     }
 
     fun CreateNewEvent(view: android.view.View) {
+
+
         val intent = Intent(applicationContext, AddEventActivity::class.java)
+        val prev_intent = getIntent()
+        var insyncUserArray = prev_intent.getStringArrayListExtra("insyncUser")!!
+
+        intent.putStringArrayListExtra("insyncUser",insyncUserArray)
+        //for debugging
+        Toast.makeText(this, insyncUserArray[1], Toast.LENGTH_SHORT).show()
+
         startActivity(intent)
     }
 

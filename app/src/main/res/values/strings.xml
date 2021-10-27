@@ -18,16 +18,21 @@
         <item>13:15 to 14:15</item>
         <item>14:30 to 15:30</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_time_table_list_teacher">TimeTableListTeacher</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+     <string-array name="Days">
+         <item>Monday</item>
+         <item>Tuesday</item>
+         <item>Wednesday</item>
+         <item>Thursday</item>
+         <item>Friday</item>
+         <item>Saturday</item>
+         <item>Sunday</item>
+      </string-array>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string-array name = "Privilege">
+        <item>Student</item>
+        <item>Teacher</item>
+        </string-array>
+
+
 
 </resources>
