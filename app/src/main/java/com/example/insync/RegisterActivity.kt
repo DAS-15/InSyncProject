@@ -49,7 +49,8 @@ class RegisterActivity : AppCompatActivity() {
                     "uid" to insyncUser.uid,
                     "name" to insyncUser.name,
                     "email" to insyncUser.email,
-                    "student" to insyncUser.student
+                    "student" to insyncUser.student,
+                    "classcode" to insyncUser.classRoomCode
                 )
                 // uploading data to database
                 FirebaseFirestore.getInstance().collection("users").document(insyncUser.uid).set(dataMap).addOnCompleteListener {
