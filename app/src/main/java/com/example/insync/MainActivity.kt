@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         redirectUserToHomePage()
         setContentView(R.layout.activity_main)
-        FirebaseAuth.getInstance().signOut()
         myEmail = findViewById(R.id.emailEditText)
         myPassword = findViewById(R.id.passwordEditText)
 
