@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.insync.model.Event
 import com.example.insync.model.User
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 
@@ -96,8 +97,8 @@ class TimeTableListStudent : AppCompatActivity() {
     }
     fun logoutIntentFun(item: android.view.MenuItem) {
 
-        // TODO: Write or call logout function here
 
+        FirebaseAuth.getInstance().signOut()
         val intent = Intent(applicationContext, TimeTableList::class.java)
         startActivity(intent)
     }

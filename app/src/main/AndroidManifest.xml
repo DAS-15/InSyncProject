@@ -12,11 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InSync">
         <activity
-            android:name=".TimeTableListTeacher"
-            android:exported="true"
-            android:label="@string/title_activity_time_table_list_teacher"
-            android:theme="@style/Theme.InSync.NoActionBar" />
-        <activity
             android:name=".TimeTableListStudent"
             android:exported="true" />
         <activity
