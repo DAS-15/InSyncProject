@@ -141,7 +141,7 @@ class TimeTableList : AppCompatActivity() {
     }
 
     fun accountIntentFun(item: android.view.MenuItem) {
-        val intent = Intent(applicationContext, TimeTableList::class.java)
+        val intent = Intent(applicationContext, AccountInfo::class.java)
         startActivity(intent)
     }
 

@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                         userFields["student"] as Boolean
                     )
 
-                    gUser = insyncUser
+
 
                     insyncUser.classRoomCode = userFields["classcode"] as String
                     var insyncUserArray = arrayListOf<String?>();
@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
 
                     val intent: Intent = Intent(applicationContext, TimeTableList::class.java)
                     intent.putStringArrayListExtra("insyncUser", insyncUserArray)
+                    gUser = insyncUser
                     startActivity(intent)
                     Toast.makeText(this, "Intent to next activity", Toast.LENGTH_SHORT).show()
                 } else {

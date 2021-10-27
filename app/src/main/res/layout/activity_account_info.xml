@@ -1,0 +1,81 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AccountInfo">
+    <TextView
+        android:id="@+id/acc_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="Account Details"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="135dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="80dp"
+        android:text="Name:"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/email"
+        app:layout_constraintEnd_toStartOf="@+id/name_value"
+        app:layout_constraintHorizontal_bias="0.119"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/acc_info"
+        app:layout_constraintVertical_bias="0.734"/>
+
+    <TextView android:id="@+id/name_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="128dp"
+        android:layout_marginBottom="136dp"
+        android:text="John Doe" android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/email_value"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView android:id="@+id/email"
+        android:layout_width="135dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="100dp"
+        android:text="Email:" android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/classcode"
+        app:layout_constraintEnd_toStartOf="@+id/email_value"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <TextView
+        android:id="@+id/email_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="92dp"
+        android:layout_marginBottom="108dp"
+        android:text="abcd@xyz.com"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/classcode_value" app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+        android:id="@+id/classcode"
+        android:layout_width="135dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="168dp"
+        android:text="ClassCode:"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/classcode_value"/>
+    <TextView
+        android:id="@+id/classcode_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="112dp"
+        android:text="abbd32bv2"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.757"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

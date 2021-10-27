@@ -18,6 +18,7 @@ class RegisterActivity : AppCompatActivity() {
     lateinit var Privilege: Spinner
     lateinit var Password: EditText
     lateinit var ConfirmPassword: EditText
+    lateinit var ClassroomCode:EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +29,7 @@ class RegisterActivity : AppCompatActivity() {
         Privilege = findViewById(R.id.Privilege)
         Password = findViewById(R.id.Password)
         ConfirmPassword = findViewById(R.id.ConfirmPassword)
+        ClassroomCode = findViewById(R.id.ClassroomCode)
 
 //        Name.text.clear()
 //        Email.text.clear()
@@ -43,6 +45,8 @@ class RegisterActivity : AppCompatActivity() {
 
                 val userFromFirebase: FirebaseUser = task.result!!.user!!
                 val insyncUser = User(userFromFirebase.uid, user.email, user.name, user.student)
+                insyncUser.classRoomCode = user.classRoomCode
+
 
                 // hashmap of values to be added
                 val dataMap = hashMapOf<String, Any>(
@@ -72,6 +76,7 @@ class RegisterActivity : AppCompatActivity() {
 
                         var intent: Intent = Intent(applicationContext,TimeTableList::class.java)
                         intent.putStringArrayListExtra("insyncUser", insyncUserArray)
+                        MainActivity.gUser = insyncUser
                         startActivity(intent)
                     }
                     else{
@@ -103,7 +108,7 @@ class RegisterActivity : AppCompatActivity() {
       return true
         //TODO: Password checking
     }
-    fun input_check():String
+    fun input_check(student:Boolean):String
     {
         var error:String = ""
         if(Name.text.toString().isEmpty())
@@ -113,6 +118,13 @@ class RegisterActivity : AppCompatActivity() {
         if(!is_valid_email(Email.text.toString().trim()))
         {
             error +="Please enter a valid email \n"
+        }
+        if(ClassroomCode.text.toString().isEmpty())
+        {
+            if(student)
+            {
+                error+="Enter Classroom Code \n"
+            }
         }
         if(Password.text.toString().isEmpty())
         {
@@ -130,14 +142,18 @@ class RegisterActivity : AppCompatActivity() {
 
     fun create_account(view: View)
     {
-        var DisplayError:String = input_check()
+        var student = if(Privilege.selectedItem.toString() == "Student") true else false
+        var DisplayError:String = input_check(student)
 
         if(DisplayError.isEmpty())
-        {   var student = if(Privilege.selectedItem.toString() == "Student") true else false
+        {
 
             var new_user:User = User("NONE",Email.text.toString(),Name.text.toString(),student)
             new_user.password = Password.text.toString()
-
+            if(student)
+            {
+                new_user.classRoomCode = ClassroomCode.text.toString()
+            }
             registerUser(new_user)
         }
         else

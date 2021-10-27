@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InSync">
         <activity
+            android:name=".AccountInfo"
+            android:exported="true" />
+        <activity
             android:name=".TimeTableListStudent"
             android:exported="true" />
         <activity
