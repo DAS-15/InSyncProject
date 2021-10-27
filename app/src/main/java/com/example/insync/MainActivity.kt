@@ -15,6 +15,11 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
+    companion object{
+        var gUser : User = User("demo@gmail.com")
+    }
+
+
     lateinit  var insyncUser: User
     lateinit var myEmail: EditText
     lateinit var myPassword: EditText
@@ -47,6 +52,8 @@ class MainActivity : AppCompatActivity() {
                         userFields["name"] as String,
                         userFields["student"] as Boolean
                     )
+
+                    gUser = insyncUser
 
                     insyncUser.classRoomCode = userFields["classcode"] as String
                     var insyncUserArray = arrayListOf<String?>();
