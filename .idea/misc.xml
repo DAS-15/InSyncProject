@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/shiva/AndroidStudioProjects/InSync/app/src/main/res/layout/activity_account_info.xml" value="0.264" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/InSync/app/src/main/res/layout/activity_add_event.xml" value="0.37044967880085655" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/InSync/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/InSync/app/src/main/res/layout/activity_register.xml" value="0.19067028985507245" />
@@ -21,7 +22,6 @@
         <entry key="..\:/Users/shiva/AndroidStudioProjects/InSync2/app/src/main/res/layout/activity_add_event.xml" value="0.17028985507246377" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/InSync2/app/src/main/res/layout/activity_main.xml" value="0.4" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/InSync2/app/src/main/res/layout/activity_register.xml" value="0.17028985507246377" />
-        <entry key="app/src/main/res/layout/activity_account_info.xml" value="0.2056159420289855" />
         <entry key="app/src/main/res/layout/activity_add_event.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.19791666666666666" />

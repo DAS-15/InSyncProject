@@ -41,7 +41,11 @@ class AddEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         Description.text.clear()
 
 
-
+        val teachersIntent = intent
+        if(teachersIntent.getStringExtra("SubjectName")!=null){
+            SubjectName.setText(teachersIntent.getStringExtra("SubjectName"))
+            LectureLink.setText(teachersIntent.getStringExtra("LectureLink"))
+        }
 
 
 

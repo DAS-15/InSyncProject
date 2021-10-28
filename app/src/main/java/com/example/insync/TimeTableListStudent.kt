@@ -13,13 +13,17 @@ import com.example.insync.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
+import java.text.SimpleDateFormat
+import java.util.*
 
 class TimeTableListStudent : AppCompatActivity() {
     lateinit var StudentrecyclerView: RecyclerView
+    lateinit var StudentmyRecyclerAdapter: MyRecyclerAdapter
 
     lateinit var Students1: MutableList<String>
     lateinit var Students2: MutableList<String>
     lateinit var StudenturlLinks: MutableList<String>
+    var eArray: ArrayList<Event> = arrayListOf<Event>()
 
     var Studentimages: Array<Int> = arrayOf(
         R.mipmap.ic_launcher,
@@ -37,6 +41,14 @@ class TimeTableListStudent : AppCompatActivity() {
         // Recycler View Setup
         StudentrecyclerView = findViewById(R.id.studentRecyclerView)
 
+        val sdf = SimpleDateFormat("EEEE")
+        val d = Date()
+        val dayOfTheWeek: String = sdf.format(d)
+
+        val scheduleIntent = intent
+        val scheduleDay: String? = scheduleIntent.getStringExtra("daySelected")
+        Toast.makeText(this, scheduleDay + " " + dayOfTheWeek, Toast.LENGTH_SHORT).show()
+
         Students1 = resources.getStringArray(R.array.subject_name).toMutableList()
         Students2 = resources.getStringArray(R.array.lecture_timing).toMutableList()
         StudenturlLinks = mutableListOf()
@@ -44,16 +56,22 @@ class TimeTableListStudent : AppCompatActivity() {
             StudenturlLinks.add("https://www.google.com/")
         }
 
-        retrieveDataForStudent(gUser, "Monday")
+//        if (scheduleDay != null) {
+//            retrieveDataForStudent(gUser, scheduleDay)
+//        } else {
+//            retrieveDataForStudent(gUser, dayOfTheWeek)
+//        }
 
-        val StudentmyRecyclerAdapter: MyRecyclerAdapter =
+        retrieveDataForStudent(gUser, "Wednesday")
+
+        StudentmyRecyclerAdapter =
             MyRecyclerAdapter(this, Students1, Students2, Studentimages)
         StudentrecyclerView.adapter = StudentmyRecyclerAdapter
         StudentmyRecyclerAdapter.setOnItemClickListener(object :
             MyRecyclerAdapter.onItemClickListener {
             override fun onItemClick(position: Int) {
                 Toast.makeText(applicationContext, Students1[position], Toast.LENGTH_SHORT).show()
-                val url = "https://www.google.com"
+                val url = StudenturlLinks[position]
                 val urli = Intent(Intent.ACTION_VIEW)
                 urli.data = Uri.parse(url)
                 startActivity(urli)
@@ -84,16 +102,21 @@ class TimeTableListStudent : AppCompatActivity() {
 
     private fun displayReceivedData(data: QuerySnapshot) {
         val eventArray = arrayListOf<Event>()
+        var x:Int = 0
         for (i in data) {
             eventArray.add(Event(i))
+            eventArray[x].printDet()
+            x++
         }
         Students1.clear()
         Students2.clear()
         StudenturlLinks.clear()
-        for (i in 0..5) {
-            Students1[i] = eventArray[i].name
-            Students2[i] = eventArray[i].startAt
-            StudenturlLinks[i] = eventArray[i].lectureLink
+        var i:Int = 0
+        while (i < x){
+            Students1.add(eventArray[i].name)
+            Students2.add(eventArray[i].startAt)
+            StudenturlLinks.add(eventArray[i].lectureLink)
+            i++
         }
     }
 
@@ -113,8 +136,6 @@ class TimeTableListStudent : AppCompatActivity() {
     }
 
     fun logoutIntentFun(item: android.view.MenuItem) {
-
-
         FirebaseAuth.getInstance().signOut()
         val intent = Intent(applicationContext, TimeTableList::class.java)
         startActivity(intent)

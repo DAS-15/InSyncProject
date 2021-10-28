@@ -56,6 +56,8 @@ class TimeTableList : AppCompatActivity() {
 //            retrieveDataForTeacher(gUser, dayOfTheWeek)
 //        }
 
+        retrieveDataForTeacher(gUser, "Wednesday")
+
         s1 = resources.getStringArray(R.array.subject_name).toMutableList()
         s2 = resources.getStringArray(R.array.lecture_timing).toMutableList()
         urlLinks = mutableListOf()
@@ -69,10 +71,10 @@ class TimeTableList : AppCompatActivity() {
         myRecyclerAdapter.setOnItemClickListener(object : MyRecyclerAdapter.onItemClickListener {
             override fun onItemClick(position: Int) {
                 Toast.makeText(applicationContext, s1[position], Toast.LENGTH_SHORT).show()
-                val url = urlLinks[position]
-                val i = Intent(Intent.ACTION_VIEW)
-                i.data = Uri.parse(url)
-                startActivity(i)
+//                val url = urlLinks[position]
+//                val i = Intent(Intent.ACTION_VIEW)
+//                i.data = Uri.parse(url)
+//                startActivity(i)
             }
         })
         recyclerView.layoutManager =
@@ -139,6 +141,7 @@ class TimeTableList : AppCompatActivity() {
             urlLinks.add(eventArray[i].lectureLink)
             i++
         }
+        myRecyclerAdapter.notifyDataSetChanged()
 //        for (i in 0..eventArray.size) {
 //            s1.add(eventArray[i].name)
 //            s2.add(eventArray[i].startAt)
