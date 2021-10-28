@@ -64,11 +64,17 @@ class MainActivity : AppCompatActivity() {
                     insyncUserArray.add(insyncUser.name)
                     insyncUserArray.add(insyncUser.student.toString())
                     Log.i("FIREBASE :", "Retrieved data for ${insyncUser.email}")
-
-                    val intent: Intent = Intent(applicationContext, TimeTableList::class.java)
-                    intent.putStringArrayListExtra("insyncUser", insyncUserArray)
                     gUser = insyncUser
-                    startActivity(intent)
+
+                    if(insyncUser.student == true) {
+                        val intent: Intent = Intent(applicationContext, TimeTableListStudent::class.java)
+                        intent.putStringArrayListExtra("insyncUser", insyncUserArray)
+                        startActivity(intent)
+                    } else {
+                        val intent: Intent = Intent(applicationContext, TimeTableList::class.java)
+                        intent.putStringArrayListExtra("insyncUser", insyncUserArray)
+                        startActivity(intent)
+                    }
                     Toast.makeText(this, "Intent to next activity", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.d("FIREBASE :", "FAILED FOR $userID")

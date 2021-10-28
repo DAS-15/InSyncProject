@@ -5,11 +5,14 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.insync.MainActivity.Companion.gUser
 import com.example.insync.model.Event
 import com.example.insync.model.User
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
@@ -90,7 +93,7 @@ class TimeTableListStudent : AppCompatActivity() {
             .collection("events").get().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     var result = task.result!!
-                    if(result.size() != 0){
+                    if (result.size() != 0) {
                         displayReceivedData(result)
                     }
 
@@ -102,7 +105,7 @@ class TimeTableListStudent : AppCompatActivity() {
 
     private fun displayReceivedData(data: QuerySnapshot) {
         val eventArray = arrayListOf<Event>()
-        var x:Int = 0
+        var x: Int = 0
         for (i in data) {
             eventArray.add(Event(i))
             eventArray[x].printDet()
@@ -111,8 +114,8 @@ class TimeTableListStudent : AppCompatActivity() {
         Students1.clear()
         Students2.clear()
         StudenturlLinks.clear()
-        var i:Int = 0
-        while (i < x){
+        var i: Int = 0
+        while (i < x) {
             Students1.add(eventArray[i].name)
             Students2.add(eventArray[i].startAt)
             StudenturlLinks.add(eventArray[i].lectureLink)
@@ -121,7 +124,7 @@ class TimeTableListStudent : AppCompatActivity() {
     }
 
     fun homeIntentFun(item: android.view.MenuItem) {
-        val intent = Intent(applicationContext, TimeTableList::class.java)
+        val intent = Intent(applicationContext, TimeTableListStudent::class.java)
         startActivity(intent)
     }
 
@@ -131,13 +134,28 @@ class TimeTableListStudent : AppCompatActivity() {
     }
 
     fun accountIntentFun(item: android.view.MenuItem) {
-        val intent = Intent(applicationContext, TimeTableList::class.java)
+        val intent = Intent(applicationContext, AccountInfo::class.java)
         startActivity(intent)
     }
 
+    fun AlertDialog.makeButtonTextBlue() {
+        this.getButton(AlertDialog.BUTTON_POSITIVE)
+            .setTextColor(ContextCompat.getColor(context, R.color.Red))
+        this.getButton(AlertDialog.BUTTON_NEGATIVE)
+            .setTextColor(ContextCompat.getColor(context, R.color.Green))
+    }
+
     fun logoutIntentFun(item: android.view.MenuItem) {
-        FirebaseAuth.getInstance().signOut()
-        val intent = Intent(applicationContext, TimeTableList::class.java)
-        startActivity(intent)
+        MaterialAlertDialogBuilder(this)
+            .setMessage("Do you want to logout?")
+            .setPositiveButton("NO") { dialog, which ->
+                Toast.makeText(this, "Welcome Back!!!", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("YES") { dialog, which ->
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(applicationContext, MainActivity::class.java)
+                startActivity(intent)
+            }
+            .show().makeButtonTextBlue()
     }
 }

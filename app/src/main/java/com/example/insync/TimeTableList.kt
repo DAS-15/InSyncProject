@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.insync.model.Event
@@ -15,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import com.example.insync.MainActivity.Companion.gUser
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -164,10 +167,24 @@ class TimeTableList : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun AlertDialog.makeButtonTextBlue() {
+        this.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.Red))
+        this.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(context, R.color.Green))
+    }
+
     fun logoutIntentFun(item: android.view.MenuItem) {
-        FirebaseAuth.getInstance().signOut()
-        val intent = Intent(applicationContext, MainActivity::class.java)
-        startActivity(intent)
+
+        MaterialAlertDialogBuilder(this)
+            .setMessage("Do you want to logout?")
+            .setPositiveButton("NO") { dialog, which ->
+                Toast.makeText(this, "Welcome Back!!!", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("YES") { dialog, which ->
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(applicationContext, MainActivity::class.java)
+                startActivity(intent)
+            }
+            .show().makeButtonTextBlue()
     }
 
 }
