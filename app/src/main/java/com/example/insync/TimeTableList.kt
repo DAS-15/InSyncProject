@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.insync.model.Event
@@ -71,8 +72,24 @@ class TimeTableList : AppCompatActivity() {
         }
 
         myRecyclerAdapter =
-            MyRecyclerAdapter(applicationContext, s1, s2, images)
+            MyRecyclerAdapter(applicationContext, s1, s2, images, urlLinks, false)
         recyclerView.adapter = myRecyclerAdapter
+
+        val sGesture = object : swipeGesture(this) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+                when (direction) {
+                    ItemTouchHelper.LEFT -> {
+                        myRecyclerAdapter.deleteItem(viewHolder.adapterPosition)
+                    }
+                }
+            }
+        }
+
+        val touchHelper = ItemTouchHelper(sGesture)
+        touchHelper.attachToRecyclerView(recyclerView)
+
+
         myRecyclerAdapter.setOnItemClickListener(object : MyRecyclerAdapter.onItemClickListener {
             override fun onItemClick(position: Int) {
                 Toast.makeText(applicationContext, s1[position], Toast.LENGTH_SHORT).show()

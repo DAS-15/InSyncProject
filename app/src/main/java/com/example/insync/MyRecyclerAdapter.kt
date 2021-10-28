@@ -1,24 +1,31 @@
 package com.example.insync
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 
 class MyRecyclerAdapter(
     ct: Context,
     s1: MutableList<String>,
     s2: MutableList<String>,
-    img: MutableList<Int>
+    img: MutableList<Int>,
+    urls: MutableList<String>,
+    isStudent: Boolean
 ) : RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder>() {
 
     var data1 = s1
     var data2 = s2
     var images = img
     var context = ct
+    var urlSet = urls
+    var isStudent = isStudent
 
     private lateinit var mListener: onItemClickListener
 
@@ -27,8 +34,18 @@ class MyRecyclerAdapter(
     }
 
     fun setOnItemClickListener(listener: onItemClickListener) {
-
         mListener = listener
+    }
+
+    fun deleteItem(i: Int) {
+
+        data1.removeAt(i)
+        data2.removeAt(i)
+        images.removeAt(i)
+        notifyDataSetChanged()
+
+        // TODO: Implement delete function here
+
 
     }
 

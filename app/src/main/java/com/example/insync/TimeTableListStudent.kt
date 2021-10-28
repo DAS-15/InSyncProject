@@ -72,7 +72,7 @@ class TimeTableListStudent : AppCompatActivity() {
         }
 
         StudentmyRecyclerAdapter =
-            MyRecyclerAdapter(this, Students1, Students2, Studentimages)
+            MyRecyclerAdapter(this, Students1, Students2, Studentimages, StudenturlLinks, true)
         StudentrecyclerView.adapter = StudentmyRecyclerAdapter
         StudentmyRecyclerAdapter.setOnItemClickListener(object :
             MyRecyclerAdapter.onItemClickListener {
