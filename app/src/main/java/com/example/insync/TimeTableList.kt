@@ -1,7 +1,6 @@
 package com.example.insync
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -31,7 +30,7 @@ class TimeTableList : AppCompatActivity() {
     lateinit var s2: MutableList<String>
     lateinit var urlLinks: MutableList<String>
 
-    var images: Array<Int> = arrayOf(
+    var images: MutableList<Int> = mutableListOf(
         R.mipmap.ic_launcher,
         R.mipmap.ic_launcher,
         R.mipmap.ic_launcher,
@@ -60,6 +59,11 @@ class TimeTableList : AppCompatActivity() {
 //        }
 
         retrieveDataForTeacher(gUser, "Wednesday")
+
+        images.clear()
+        for(i in 0..s1.size){
+            images.add(R.mipmap.ic_launcher)
+        }
 
         s1 = resources.getStringArray(R.array.subject_name).toMutableList()
         s2 = resources.getStringArray(R.array.lecture_timing).toMutableList()

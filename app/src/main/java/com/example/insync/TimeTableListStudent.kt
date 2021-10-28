@@ -28,7 +28,7 @@ class TimeTableListStudent : AppCompatActivity() {
     lateinit var StudenturlLinks: MutableList<String>
     var eArray: ArrayList<Event> = arrayListOf<Event>()
 
-    var Studentimages: Array<Int> = arrayOf(
+    var Studentimages: MutableList<Int> = mutableListOf(
         R.mipmap.ic_launcher,
         R.mipmap.ic_launcher,
         R.mipmap.ic_launcher,
@@ -55,7 +55,7 @@ class TimeTableListStudent : AppCompatActivity() {
         Students1 = resources.getStringArray(R.array.subject_name).toMutableList()
         Students2 = resources.getStringArray(R.array.lecture_timing).toMutableList()
         StudenturlLinks = mutableListOf()
-        for (i in 0..5) {
+        for (i in 0..Students1.size) {
             StudenturlLinks.add("https://www.google.com/")
         }
 
@@ -66,6 +66,11 @@ class TimeTableListStudent : AppCompatActivity() {
 //        }
 
         retrieveDataForStudent(gUser, "Wednesday")
+
+        Studentimages.clear()
+        for(i in 0..Students1.size){
+            Studentimages.add(R.mipmap.ic_launcher)
+        }
 
         StudentmyRecyclerAdapter =
             MyRecyclerAdapter(this, Students1, Students2, Studentimages)
@@ -119,7 +124,7 @@ class TimeTableListStudent : AppCompatActivity() {
             Students1.add(eventArray[i].name)
             Students2.add(eventArray[i].startAt)
             StudenturlLinks.add(eventArray[i].lectureLink)
-            i++
+            ++i
         }
         StudentmyRecyclerAdapter.notifyDataSetChanged()
     }

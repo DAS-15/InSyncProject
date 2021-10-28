@@ -12,7 +12,7 @@ class MyRecyclerAdapter(
     ct: Context,
     s1: MutableList<String>,
     s2: MutableList<String>,
-    img: Array<Int>
+    img: MutableList<Int>
 ) : RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder>() {
 
     var data1 = s1
