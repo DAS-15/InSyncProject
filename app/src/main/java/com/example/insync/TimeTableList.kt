@@ -42,7 +42,6 @@ class TimeTableList : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerView)
 
-
         val sdf = SimpleDateFormat("EEEE")
         val d = Date()
         val dayOfTheWeek: String = sdf.format(d)
