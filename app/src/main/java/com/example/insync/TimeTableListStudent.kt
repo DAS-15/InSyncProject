@@ -68,7 +68,7 @@ class TimeTableListStudent : AppCompatActivity() {
         retrieveDataForStudent(gUser, "Wednesday")
 
         Studentimages.clear()
-        for(i in 0..Students1.size){
+        for(i in 0..Students1.size+2){
             Studentimages.add(R.mipmap.ic_launcher)
         }
 
@@ -79,10 +79,11 @@ class TimeTableListStudent : AppCompatActivity() {
             MyRecyclerAdapter.onItemClickListener {
             override fun onItemClick(position: Int) {
                 Toast.makeText(applicationContext, Students1[position], Toast.LENGTH_SHORT).show()
-                val url = StudenturlLinks[position]
-                val urli = Intent(Intent.ACTION_VIEW)
-                urli.data = Uri.parse(url)
-                startActivity(urli)
+                var url = StudenturlLinks[position]
+                if (!url.startsWith("https://") && !url.startsWith("http://")){
+                    url = "http://" + url;
+                }
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
             }
         })
         StudentrecyclerView.layoutManager =

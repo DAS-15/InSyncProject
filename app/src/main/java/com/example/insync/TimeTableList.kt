@@ -44,6 +44,13 @@ class TimeTableList : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerView)
 
+        s1 = resources.getStringArray(R.array.subject_name).toMutableList()
+        s2 = resources.getStringArray(R.array.lecture_timing).toMutableList()
+        urlLinks = mutableListOf()
+        for (i in 0..5) {
+            urlLinks.add("https://www.google.com/")
+        }
+
         val sdf = SimpleDateFormat("EEEE")
         val d = Date()
         val dayOfTheWeek: String = sdf.format(d)
@@ -61,15 +68,8 @@ class TimeTableList : AppCompatActivity() {
         retrieveDataForTeacher(gUser, "Wednesday")
 
         images.clear()
-        for(i in 0..s1.size){
+        for(i in 0..s1.size+2){
             images.add(R.mipmap.ic_launcher)
-        }
-
-        s1 = resources.getStringArray(R.array.subject_name).toMutableList()
-        s2 = resources.getStringArray(R.array.lecture_timing).toMutableList()
-        urlLinks = mutableListOf()
-        for (i in 0..5) {
-            urlLinks.add("https://www.google.com/")
         }
 
         myRecyclerAdapter =
