@@ -3,6 +3,7 @@ package com.example.insync
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -50,11 +51,11 @@ class TimeTableList : AppCompatActivity() {
         val scheduleDay: String? = scheduleIntent.getStringExtra("daySelected")
         Toast.makeText(this, scheduleDay + " " + dayOfTheWeek, Toast.LENGTH_SHORT).show()
 
-//        if (scheduleDay != null) {
-//            retrieveDataForTeacher(gUser, scheduleDay)
-//        } else {
-//            retrieveDataForTeacher(gUser, dayOfTheWeek)
-//        }
+        if (scheduleDay != null) {
+            retrieveDataForTeacher(gUser, scheduleDay)
+        } else {
+            retrieveDataForTeacher(gUser, dayOfTheWeek)
+        }
 
         s1 = resources.getStringArray(R.array.subject_name).toMutableList()
         s2 = resources.getStringArray(R.array.lecture_timing).toMutableList()
@@ -102,13 +103,18 @@ class TimeTableList : AppCompatActivity() {
     fun retrieveDataForTeacher(insyncUser: User, day: String) {
 
         val dayToday = day
+        Log.d("WEEKDAY:", dayToday)
         var teacherDataForToday =
             FirebaseFirestore.getInstance().collection("teacherDB").document(insyncUser.uid)
-                .collection("weekday").document(dayToday).collection("events").get()
+                .collection("weekdays").document(dayToday).collection("events").get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val result = task.result!!
-                        displayReceivedData(result)
+                        Log.d("EVENT :", "${result.size()}")
+                        if(result.size() != 0){
+                            displayReceivedData(result)
+                        }
+
                     } else {
 
                     }
@@ -117,17 +123,28 @@ class TimeTableList : AppCompatActivity() {
 
     private fun displayReceivedData(data: QuerySnapshot) {
         val eventArray = arrayListOf<Event>()
+        var x:Int = 0
+        Log.d("EVENT :", "${data.size()}")
         for (i in data) {
             eventArray.add(Event(i))
+            eventArray[x].printDet()
+            x++
         }
         s1.clear()
         s2.clear()
         urlLinks.clear()
-        for (i in 0..eventArray.size) {
+        var i:Int = 0
+        while (i < x){
             s1.add(eventArray[i].name)
             s2.add(eventArray[i].startAt)
             urlLinks.add(eventArray[i].lectureLink)
+            i++
         }
+//        for (i in 0..eventArray.size) {
+//            s1.add(eventArray[i].name)
+//            s2.add(eventArray[i].startAt)
+//            urlLinks.add(eventArray[i].lectureLink)
+//        }
     }
 
     fun homeIntentFun(item: android.view.MenuItem) {

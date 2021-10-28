@@ -54,8 +54,10 @@ class MainActivity : AppCompatActivity() {
                     )
 
 
+                    if(userFields["classcode"] != null ){
+                        insyncUser.classRoomCode = userFields["classcode"] as String
+                    }
 
-                    insyncUser.classRoomCode = userFields["classcode"] as String
                     var insyncUserArray = arrayListOf<String?>();
                     insyncUserArray.add(insyncUser.uid)
                     insyncUserArray.add(insyncUser.email)

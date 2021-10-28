@@ -68,11 +68,14 @@ class TimeTableListStudent : AppCompatActivity() {
 
         val dayToday = day // to be retrieved using date time
         var studentDataForToday = FirebaseFirestore.getInstance().collection("classroomDB")
-            .document(insyncUser.classRoomCode).collection("weekday").document(dayToday)
+            .document(insyncUser.classRoomCode).collection("weekdays").document(dayToday)
             .collection("events").get().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     var result = task.result!!
-                    displayReceivedData(result)
+                    if(result.size() != 0){
+                        displayReceivedData(result)
+                    }
+
                 } else {
 
                 }

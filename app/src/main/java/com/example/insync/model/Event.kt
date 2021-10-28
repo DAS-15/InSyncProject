@@ -1,5 +1,6 @@
 package com.example.insync.model
 
+import android.util.Log
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 
@@ -40,5 +41,12 @@ class Event
         this.endAt = data["endAt"] as String
         this.description = data["desc"] as String
         this.owner = data["owner"] as String
+    }
+
+    public fun printDet()
+    {
+        Log.d("EVENT : ", this.name)
+        Log.d("EVENT : ", this.weekday)
+
     }
 }
