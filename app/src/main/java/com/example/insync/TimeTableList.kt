@@ -59,16 +59,14 @@ class TimeTableList : AppCompatActivity() {
         val scheduleDay: String? = scheduleIntent.getStringExtra("daySelected")
         Toast.makeText(this, scheduleDay + " " + dayOfTheWeek, Toast.LENGTH_SHORT).show()
 
-//        if (scheduleDay != null) {
-//            retrieveDataForTeacher(gUser, scheduleDay)
-//        } else {
-//            retrieveDataForTeacher(gUser, dayOfTheWeek)
-//        }
-
-        retrieveDataForTeacher(gUser, "Wednesday")
+        if (scheduleDay != null) {
+            retrieveDataForTeacher(gUser, scheduleDay)
+        } else {
+            retrieveDataForTeacher(gUser, dayOfTheWeek)
+        }
 
         images.clear()
-        for(i in 0..s1.size+2){
+        for (i in 0..s1.size + 2) {
             images.add(R.mipmap.ic_launcher)
         }
 
@@ -93,14 +91,7 @@ class TimeTableList : AppCompatActivity() {
             LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.topmenu, menu)
-        return true
-    }
-
     fun CreateNewEvent(view: android.view.View) {
-
-
         val intent = Intent(applicationContext, AddEventActivity::class.java)
         val prev_intent = getIntent()
         var insyncUserArray = prev_intent.getStringArrayListExtra("insyncUser")!!
@@ -124,7 +115,7 @@ class TimeTableList : AppCompatActivity() {
                     if (task.isSuccessful) {
                         val result = task.result!!
                         Log.d("EVENT :", "${result.size()}")
-                        if(result.size() != 0){
+                        if (result.size() != 0) {
                             displayReceivedData(result)
                         }
 
@@ -136,21 +127,22 @@ class TimeTableList : AppCompatActivity() {
 
     private fun displayReceivedData(data: QuerySnapshot) {
         val eventArray = arrayListOf<Event>()
-        var x:Int = 0
+        var x: Int = 0
         Log.d("EVENT :", "${data.size()}")
         for (i in data) {
             eventArray.add(Event(i))
             eventArray[x].printDet()
             x++
         }
+        val e = eventArray.sortedWith(compareBy({ it.startAt }))
         s1.clear()
         s2.clear()
         urlLinks.clear()
-        var i:Int = 0
-        while (i < x){
-            s1.add(eventArray[i].name)
-            s2.add(eventArray[i].startAt)
-            urlLinks.add(eventArray[i].lectureLink)
+        var i: Int = 0
+        while (i < x) {
+            s1.add(e[i].name)
+            s2.add(e[i].startAt)
+            urlLinks.add(e[i].lectureLink)
             i++
         }
         myRecyclerAdapter.notifyDataSetChanged()
@@ -177,8 +169,10 @@ class TimeTableList : AppCompatActivity() {
     }
 
     fun AlertDialog.makeButtonTextBlue() {
-        this.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.Red))
-        this.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(context, R.color.Green))
+        this.getButton(AlertDialog.BUTTON_POSITIVE)
+            .setTextColor(ContextCompat.getColor(context, R.color.Red))
+        this.getButton(AlertDialog.BUTTON_NEGATIVE)
+            .setTextColor(ContextCompat.getColor(context, R.color.Green))
     }
 
     fun logoutIntentFun(item: android.view.MenuItem) {

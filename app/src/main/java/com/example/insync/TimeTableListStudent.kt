@@ -26,7 +26,6 @@ class TimeTableListStudent : AppCompatActivity() {
     lateinit var Students1: MutableList<String>
     lateinit var Students2: MutableList<String>
     lateinit var StudenturlLinks: MutableList<String>
-    var eArray: ArrayList<Event> = arrayListOf<Event>()
 
     var Studentimages: MutableList<Int> = mutableListOf(
         R.mipmap.ic_launcher,
@@ -59,11 +58,11 @@ class TimeTableListStudent : AppCompatActivity() {
             StudenturlLinks.add("https://www.google.com/")
         }
 
-//        if (scheduleDay != null) {
-//            retrieveDataForStudent(gUser, scheduleDay)
-//        } else {
-//            retrieveDataForStudent(gUser, dayOfTheWeek)
-//        }
+        if (scheduleDay != null) {
+            retrieveDataForStudent(gUser, scheduleDay)
+        } else {
+            retrieveDataForStudent(gUser, dayOfTheWeek)
+        }
 
         retrieveDataForStudent(gUser, "Wednesday")
 
@@ -117,14 +116,15 @@ class TimeTableListStudent : AppCompatActivity() {
             eventArray[x].printDet()
             x++
         }
+        val e = eventArray.sortedWith(compareBy({it.startAt}))
         Students1.clear()
         Students2.clear()
         StudenturlLinks.clear()
         var i: Int = 0
         while (i < x) {
-            Students1.add(eventArray[i].name)
-            Students2.add(eventArray[i].startAt)
-            StudenturlLinks.add(eventArray[i].lectureLink)
+            Students1.add(e[i].name)
+            Students2.add(e[i].startAt)
+            StudenturlLinks.add(e[i].lectureLink)
             ++i
         }
         StudentmyRecyclerAdapter.notifyDataSetChanged()
