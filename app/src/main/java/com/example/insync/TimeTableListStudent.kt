@@ -121,6 +121,7 @@ class TimeTableListStudent : AppCompatActivity() {
             StudenturlLinks.add(eventArray[i].lectureLink)
             i++
         }
+        StudentmyRecyclerAdapter.notifyDataSetChanged()
     }
 
     fun homeIntentFun(item: android.view.MenuItem) {
