@@ -22,9 +22,19 @@ class ScheduleActivity : AppCompatActivity() {
         scheduleAdapter.setOnItemClickListener(object : ScheduleAdapter.onItemClickListener {
             override fun onItemClick(position: Int) {
                 Toast.makeText(applicationContext, days[position], Toast.LENGTH_SHORT).show()
-                val i = Intent(applicationContext, TimeTableList::class.java)
-                i.putExtra("daySelected", days[position])
-                startActivity(i)
+                if(MainActivity.gUser.student)
+                {
+                    val i = Intent(applicationContext, TimeTableListStudent::class.java)
+                    i.putExtra("daySelected", days[position])
+                    startActivity(i)
+                }
+                else
+                {
+                    val i = Intent(applicationContext, TimeTableList::class.java)
+                    i.putExtra("daySelected", days[position])
+                    startActivity(i)
+                }
+
             }
         })
         recyclerView.layoutManager =
