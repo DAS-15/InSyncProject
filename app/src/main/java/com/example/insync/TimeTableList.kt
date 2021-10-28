@@ -51,11 +51,11 @@ class TimeTableList : AppCompatActivity() {
         val scheduleDay: String? = scheduleIntent.getStringExtra("daySelected")
         Toast.makeText(this, scheduleDay + " " + dayOfTheWeek, Toast.LENGTH_SHORT).show()
 
-        if (scheduleDay != null) {
-            retrieveDataForTeacher(gUser, scheduleDay)
-        } else {
-            retrieveDataForTeacher(gUser, dayOfTheWeek)
-        }
+//        if (scheduleDay != null) {
+//            retrieveDataForTeacher(gUser, scheduleDay)
+//        } else {
+//            retrieveDataForTeacher(gUser, dayOfTheWeek)
+//        }
 
         s1 = resources.getStringArray(R.array.subject_name).toMutableList()
         s2 = resources.getStringArray(R.array.lecture_timing).toMutableList()
