@@ -78,6 +78,11 @@ class TimeTableList : AppCompatActivity() {
 //                val i = Intent(Intent.ACTION_VIEW)
 //                i.data = Uri.parse(url)
 //                startActivity(i)
+
+                val teachersIntent = Intent(applicationContext, AddEventActivity::class.java)
+                teachersIntent.putExtra("SubjectName", s1[position])
+                teachersIntent.putExtra("LectureLink", urlLinks[position])
+                startActivity(teachersIntent)
             }
         })
         recyclerView.layoutManager =
