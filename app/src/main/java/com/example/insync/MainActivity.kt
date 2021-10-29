@@ -122,12 +122,34 @@ class MainActivity : AppCompatActivity() {
                 }
             }
     }
+    fun check_input():String
+    {
+        var error = ""
+        if(myEmail.text.toString().isEmpty())
+        {
+            error+= "Please Enter Email \n"
+        }
+        if(myPassword.text.toString().isEmpty())
+        {
+            error+= "Please Enter Password \n"
+        }
+        return error
+    }
 
     fun redirectIt(view: android.view.View) {
-        if (myEmail.text.toString() != null && myPassword.text.toString() != null) {
-            loginWithEmailAndPassword(myEmail.text.toString(), myPassword.text.toString())
-        } else {
-            Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
+        var Error:String = check_input()
+        if(Error.isEmpty()) {
+
+            if (myEmail.text.toString() != null && myPassword.text.toString() != null) {
+                loginWithEmailAndPassword(myEmail.text.toString(), myPassword.text.toString())
+            } else {
+                Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
+            }
+        }
+        else
+        {
+            Toast.makeText(this, Error, Toast.LENGTH_SHORT).show()
+
         }
     }
 

@@ -11,7 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 
-class RegisterActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity(){
 
     lateinit var Name: EditText
     lateinit var Email: EditText
@@ -30,6 +30,29 @@ class RegisterActivity : AppCompatActivity() {
         Password = findViewById(R.id.Password)
         ConfirmPassword = findViewById(R.id.ConfirmPassword)
         ClassroomCode = findViewById(R.id.ClassroomCode)
+        ClassroomCode.visibility = View.INVISIBLE
+
+        val option_list = listOf<String>("Teacher","Student")
+        val adapter = ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,option_list)
+        Privilege.adapter = adapter
+        Privilege.onItemSelectedListener = object: AdapterView.OnItemSelectedListener
+        {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, id: Long) {
+                if(Privilege.getItemAtPosition(position) == "Student")
+                {
+                    Toast.makeText(this@RegisterActivity, "Teacher Selected!", Toast.LENGTH_SHORT).show()
+                    ClassroomCode.visibility = View.VISIBLE
+                }
+                else
+                {
+                    ClassroomCode.visibility = View.INVISIBLE
+                }
+            }
+            override fun onNothingSelected(parent:AdapterView<*>?)
+            {
+
+            }
+        }
 
 //        Name.text.clear()
 //        Email.text.clear()
@@ -103,11 +126,7 @@ class RegisterActivity : AppCompatActivity() {
          }
         else return EMAIL_REGEX.toRegex().matches(Email)
     }
-    fun is_valid_password():Boolean
-    {
-      return true
-        //TODO: Password checking
-    }
+
     fun input_check(student:Boolean):String
     {
         var error:String = ""
@@ -128,14 +147,15 @@ class RegisterActivity : AppCompatActivity() {
         }
         if(Password.text.toString().isEmpty())
         {
-            error+="Enter a valid password"
+            error+="Enter a valid password \n"
         }
         else if(Password.text.toString() != ConfirmPassword.text.toString())
         {
-            error += "Please Confirm Password Correctly"
+            error += "Passwords do not match \n"
             Password.text.clear()
             ConfirmPassword.text.clear()
         }
+        Toast.makeText(this, Privilege.selectedItem.toString(), Toast.LENGTH_SHORT).show()
         return error
 
     }
@@ -149,6 +169,7 @@ class RegisterActivity : AppCompatActivity() {
         {
 
             var new_user:User = User("NONE",Email.text.toString(),Name.text.toString(),student)
+
             new_user.password = Password.text.toString()
             if(student)
             {
