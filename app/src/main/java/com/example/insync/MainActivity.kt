@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                         intent.putStringArrayListExtra("insyncUser", insyncUserArray)
                         startActivity(intent)
                     }
-                    Toast.makeText(this, "Intent to next activity", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.d("FIREBASE :", "FAILED FOR $userID")
 

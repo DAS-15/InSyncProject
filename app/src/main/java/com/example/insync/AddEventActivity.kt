@@ -91,13 +91,13 @@ class AddEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
                             }
                             else
                             {
-                                Toast.makeText(this,"Task1 Successfull: Task 2 Unsucessful",Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this,"Event could not be added.",Toast.LENGTH_SHORT).show()
                             }
                         }
 
                 }else{
 
-                    Toast.makeText(this,"Failed Task1: Failed Task2 ",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Event could not be added",Toast.LENGTH_SHORT).show()
                 }
             }
     }
@@ -157,7 +157,7 @@ class AddEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
             )
             createEvent(insyncUser, NewEvent)
             //for debugging
-            Toast.makeText(this, StartTime+" "+EndTime, Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, StartTime+" "+EndTime, Toast.LENGTH_SHORT).show()
         }
 
         else
